@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private float SpawnRate = 1.0f;
     private int score;
 
-    IEnumerator SpawnTarget()
+    private IEnumerator SpawnTarget()
     {
         while(isGameActive)
         {
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateScore(int scoreToAdd)  //should be public, bec have to be a ref in target.cs
+    public void UpdateScore(int scoreToAdd)  
     {
         score += scoreToAdd;
         scoreText.text = "Score: " + score;
