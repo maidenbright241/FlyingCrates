@@ -16,7 +16,7 @@ public class Target : MonoBehaviour
     public int pointValue; //assigned point for each one prefab
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         targetRb = GetComponent<Rigidbody>();
         targetRb.AddForce(RandomForce(), ForceMode.Impulse); //adding force for the RB in range 12 to 16, with impulse mode
@@ -25,26 +25,26 @@ public class Target : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    Vector3 RandomForce()
+    public Vector3 RandomForce()
     {
         return Vector3.up * Random.Range(minSpeed, maxSpeed);
     }
 
-    float RandomTorque()
+    public float RandomTorque()
     {
         return Random.Range(-maxTorque, maxTorque);
     }
 
-    Vector3 RandomSpawnPos()
+    public Vector3 RandomSpawnPos()
     {
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
     }
 
-    private void OnMouseDown() //this is unity engine method, here is logics, if the mouse-button-clicked on the curr GO, the logics in its blockof code will be executed
+    private void OnMouseDown() // if the mouse-button-clicked on the curr GO, the logics in its blockof code will be executed
     {
-        if(gameManager.isGameActive)
+        if(this.gameManager.isGameActive)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
             gameManager.UpdateScore(pointValue);  //through the scipt, we give parameter current pointValue to method UpdateScore. So, when the GO will be destroyed,the score will be increased
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
         }   
@@ -52,11 +52,11 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) //we've empty GO Sensor, which is have box collider with trigger, so if our collider connect with the other, GO will be destroyed 
     {
-        if(!gameObject.CompareTag("Bad"))
+        if(!this.gameObject.CompareTag("Bad"))
         { 
-            gameManager.GameOver(); //if target tag is not bad, the method gameover will be called
+            this.gameManager.GameOver(); //if target tag is not bad, the method gameover will be called
         }
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame
